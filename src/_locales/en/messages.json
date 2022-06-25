@@ -27,6 +27,9 @@
 // ********************************************************************************************************************/
 
 {
+    "error.messagenotfound": {
+        "message": "A message in the conversation could not be found. This means either the global index is out-of-date or the folder index file is corrupt."
+    },
     "extension.copyright1": {
         "message": "© 2005-2007 Alexander C. Hubmann"
     },
@@ -39,6 +42,9 @@
     "extension.homepage": {
         "message": "https://threadvis.github.io"
     },
+    "extension.name": {
+        "message": "ThreadVis"
+    },
     "extension.version": {
         "message": "[[version]]"
     },
@@ -49,6 +55,12 @@
     "extensionName": {
         "description": "Name of the extension.",
         "message": "ThreadVis"
+    },
+    "extensions.{A23E4120-431F-4753-AE53-5D028C42CFDC}.description": {
+        "message": "Displays a small graphic visualising the context (thread) of the currently selected email."
+    },
+    "legend.title": {
+        "message": "ThreadVis Legend"
     },
     "options.about.version": {
         "message": "Version"
@@ -197,7 +209,139 @@
     "options.visualisation.zoom.full": {
         "message": "full (no zoom)"
     },
+    "popup.exportsvg": {
+        "message": "Export as SVG..."
+    },
     "popup.legend": {
         "message": "Display Legend"
+    },
+    "popup.popupwindow": {
+        "message": "Display in Separate Window"
+    },
+    "popup.settings": {
+        "message": "Settings..."
+    },
+    "popupwindow.title": {
+        "message": "ThreadVis Visualisation"
+    },
+    "statusbar.disable": {
+        "message": "Disabled"
+    },
+    "statusbar.disabled": {
+        "message": "Disabled in preferences."
+    },
+    "statusbar.disabledAccount": {
+        "message": "Disabled for the current account."
+    },
+    "statusbar.disabledFolder": {
+        "message": "Disabled for the current folder."
+    },
+    "statusbar.disabledGloda": {
+        "message": "Disabled because the 'Global Search and Indexer' feature is disabled."
+    },
+    "statusbar.enable": {
+        "message": "Enabled"
+    },
+    "statusbar.enableAccount": {
+        "message": "For current account"
+    },
+    "statusbar.enableFolder": {
+        "message": "For current folder"
+    },
+    "tooltip.date": {
+        "message": "Date:"
+    },
+    "tooltip.from": {
+        "message": "From:"
+    },
+    "tooltip.missingmessage": {
+        "message": "This is a missing message."
+    },
+    "tooltip.missingmessagedetail": {
+        "message": "Either you never received it or it was deleted."
+    },
+    "tooltip.subject": {
+        "message": "Subject:"
+    },
+    "visualisation.disabledWarning": {
+        "message": "ThreadVis is deactivated for the current folder."
+    },
+    "visualisation.disabledWarningLink": {
+        "message": "Open settings"
+    },
+    "visualisation.exportsvg.height": {
+        "message": "Height of the exported SVG document (in pixel)"
+    },
+    "visualisation.exportsvg.width": {
+        "message": "Width of the exported SVG document (in pixel)"
+    },
+    "visualisation.loading": {
+        "message": "Loading ThreadVis ..."
+    },
+    "visualisation.timedifference.day": {
+        "message": "day"
+    },
+    "visualisation.timedifference.days": {
+        "message": "days"
+    },
+    "visualisation.timedifference.days.short": {
+        "message": "d"
+    },
+    "visualisation.timedifference.hour": {
+        "message": "hour"
+    },
+    "visualisation.timedifference.hours": {
+        "message": "hours"
+    },
+    "visualisation.timedifference.hours.short": {
+        "message": "h"
+    },
+    "visualisation.timedifference.minute": {
+        "message": "minute"
+    },
+    "visualisation.timedifference.minutes": {
+        "message": "minutes"
+    },
+    "visualisation.timedifference.minutes.short": {
+        "message": "m"
+    },
+    "visualisation.timedifference.month": {
+        "message": "month"
+    },
+    "visualisation.timedifference.months": {
+        "message": "month"
+    },
+    "visualisation.timedifference.months.short": {
+        "message": "M"
+    },
+    "visualisation.timedifference.second": {
+        "message": "second"
+    },
+    "visualisation.timedifference.seconds": {
+        "message": "seconds"
+    },
+    "visualisation.timedifference.seconds.short": {
+        "message": "s"
+    },
+    "visualisation.timedifference.year": {
+        "message": "year"
+    },
+    "visualisation.timedifference.years": {
+        "message": "years"
+    },
+    "visualisation.timedifference.years.short": {
+        "message": "Y"
+    },
+    "visualisation.warningCount": {
+        "message": "Too many messages"
+    },
+    "visualisation.warningCountLink": {
+        "message": "Display anyway."
+    },
+    "zoomin.tooltip": {
+        "message": "Zoom In"
+    },
+    "zoomout.tooltip": {
+        "message": "Zoom Out"
     }
 }
