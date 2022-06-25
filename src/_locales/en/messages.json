@@ -27,13 +27,31 @@
 // ********************************************************************************************************************/
 
 {
-    "extensionName": {
-        "message": "ThreadVis",
-        "description": "Name of the extension."
+    "extension.copyright1": {
+        "message": "© 2005-2007 Alexander C. Hubmann"
+    },
+    "extension.copyright2": {
+        "message": "© 2007-2022 Alexander C. Hubmann-Haidvogel"
+    },
+    "extension.email": {
+        "message": "ahubmann@gmail.com"
+    },
+    "extension.homepage": {
+        "message": "https://threadvis.github.io"
+    },
+    "extension.version": {
+        "message": "[[version]]"
     },
     "extensionDescription": {
-        "message": "Displays a small graphic visualising the context (thread) of the currently selected email.",
-        "description": "Description of the extension."
+        "description": "Description of the extension.",
+        "message": "Displays a small graphic visualising the context (thread) of the currently selected email."
+    },
+    "extensionName": {
+        "description": "Name of the extension.",
+        "message": "ThreadVis"
+    },
+    "options.about.version": {
+        "message": "Version"
     },
     "options.sentmail.caption": {
         "message": "Detect sent messages"
@@ -44,20 +62,32 @@
     "options.sentmail.identity": {
         "message": "Treat all emails with a local identity as sender as a sent email."
     },
-    "options.visualisation.zoom.caption": {
-        "message": "Default Size"
+    "options.visualisation.colour.author.caption": {
+        "message": "Multiple Colours"
     },
-    "options.visualisation.zoom.fit": {
-        "message": "fit (auto zoom)"
+    "options.visualisation.colour.author.description": {
+        "message": "Use different colours for different authors."
     },
-    "options.visualisation.zoom.full": {
-        "message": "full (no zoom)"
+    "options.visualisation.colour.caption": {
+        "message": "Colours"
     },
-    "options.visualisation.enabledaccounts.caption": {
-        "message": "Enabled Accounts and Folders"
+    "options.visualisation.colour.current": {
+        "message": "Colour to highlight current message"
     },
-    "options.visualisation.enabledaccounts.description": {
-        "message": "Only enable extension for selected accounts and folders."
+    "options.visualisation.colour.highlight": {
+        "message": "Underline authors in header display with their colours."
+    },
+    "options.visualisation.colour.received": {
+        "message": "Colours (comma-separated) for received emails"
+    },
+    "options.visualisation.colour.sent": {
+        "message": "Colour for sent emails"
+    },
+    "options.visualisation.colour.single.caption": {
+        "message": "Single Colour"
+    },
+    "options.visualisation.colour.single.description": {
+        "message": "Only use a single colour in the visualisation. The selected message is displayed in blue, other messages are displayed in grey."
     },
     "options.visualisation.enabledaccounts.button.all": {
         "message": "All"
@@ -65,20 +95,59 @@
     "options.visualisation.enabledaccounts.button.none": {
         "message": "None"
     },
+    "options.visualisation.enabledaccounts.caption": {
+        "message": "Enabled Accounts and Folders"
+    },
+    "options.visualisation.enabledaccounts.description": {
+        "message": "Only enable extension for selected accounts and folders."
+    },
+    "options.visualisation.opacity": {
+        "message": "Fading for nonrelevant subthreads:"
+    },
+    "options.visualisation.size.arcdifference": {
+        "message": "Spacing between Arcs"
+    },
+    "options.visualisation.size.arcminheight": {
+        "message": "Minimum Arc Height"
+    },
+    "options.visualisation.size.arcradius": {
+        "message": "Arc Radius"
+    },
+    "options.visualisation.size.arcwidth": {
+        "message": "Arc Width"
+    },
+    "options.visualisation.size.caption": {
+        "message": "Size"
+    },
+    "options.visualisation.size.dotsize": {
+        "message": "Size of Messages"
+    },
+    "options.visualisation.size.messagecircles": {
+        "message": "Draw messages as circles"
+    },
+    "options.visualisation.size.spacing": {
+        "message": "Spacing between Messages"
+    },
+    "options.visualisation.timeline.enable": {
+        "message": "Display the time between two messages."
+    },
+    "options.visualisation.timeline.fontsize": {
+        "message": "Timeline Font Size"
+    },
     "options.visualisation.timescaling.caption": {
         "message": "Time Scaling"
-    },
-    "options.visualisation.timescaling.enable": {
-        "message": "Enable Time Scaling"
-    },
-    "options.visualisation.timescaling.disable": {
-        "message": "Disable Time Scaling"
     },
     "options.visualisation.timescaling.description.disabled": {
         "message": "If Time Scaling is disabled, the horizontal spacing between two adjacent messages is always constant."
     },
     "options.visualisation.timescaling.description.enabled": {
         "message": "If Time Scaling is enabled, the horizontal spacing between two adjacent messages is proportional to the time difference between those two messages."
+    },
+    "options.visualisation.timescaling.disable": {
+        "message": "Disable Time Scaling"
+    },
+    "options.visualisation.timescaling.enable": {
+        "message": "Enable Time Scaling"
     },
     "options.visualisation.timescaling.method": {
         "message": "Time Scaling Method"
@@ -92,20 +161,11 @@
     "options.visualisation.timescaling.mintimediff": {
         "message": "Minimal displayed time difference"
     },
-    "options.visualisation.timescaling.mintimediff.automatic": {
-        "message": "automatic"
-    },
-    "options.visualisation.timescaling.mintimediff.1min": {
-        "message": "1 minute"
+    "options.visualisation.timescaling.mintimediff.10days": {
+        "message": "10 days"
     },
     "options.visualisation.timescaling.mintimediff.10min": {
         "message": "10 minutes"
-    },
-    "options.visualisation.timescaling.mintimediff.30min": {
-        "message": "30 minutes"
-    },
-    "options.visualisation.timescaling.mintimediff.1hour": {
-        "message": "1 hour"
     },
     "options.visualisation.timescaling.mintimediff.12hours": {
         "message": "12 hours"
@@ -113,88 +173,31 @@
     "options.visualisation.timescaling.mintimediff.1day": {
         "message": "1 day"
     },
+    "options.visualisation.timescaling.mintimediff.1hour": {
+        "message": "1 hour"
+    },
+    "options.visualisation.timescaling.mintimediff.1min": {
+        "message": "1 minute"
+    },
     "options.visualisation.timescaling.mintimediff.2days": {
         "message": "2 days"
     },
-    "options.visualisation.timescaling.mintimediff.10days": {
-        "message": "10 days"
+    "options.visualisation.timescaling.mintimediff.30min": {
+        "message": "30 minutes"
     },
-    "options.visualisation.timeline.enable": {
-        "message": "Display the time between two messages."
+    "options.visualisation.timescaling.mintimediff.automatic": {
+        "message": "automatic"
     },
-    "options.visualisation.timeline.fontsize": {
-        "message": "Timeline Font Size"
+    "options.visualisation.zoom.caption": {
+        "message": "Default Size"
     },
-    "options.visualisation.size.caption": {
-        "message": "Size"
+    "options.visualisation.zoom.fit": {
+        "message": "fit (auto zoom)"
     },
-    "options.visualisation.size.dotsize": {
-        "message": "Size of Messages"
+    "options.visualisation.zoom.full": {
+        "message": "full (no zoom)"
     },
-    "options.visualisation.size.arcminheight": {
-        "message": "Minimum Arc Height"
-    },
-    "options.visualisation.size.arcradius": {
-        "message": "Arc Radius"
-    },
-    "options.visualisation.size.arcdifference": {
-        "message": "Spacing between Arcs"
-    },
-    "options.visualisation.size.arcwidth": {
-        "message": "Arc Width"
-    },
-    "options.visualisation.size.spacing": {
-        "message": "Spacing between Messages"
-    },
-    "options.visualisation.size.messagecircles": {
-        "message": "Draw messages as circles"
-    },
-    "options.visualisation.colour.caption": {
-        "message": "Colours"
-    },
-    "options.visualisation.colour.single.caption": {
-        "message": "Single Colour"
-    },
-    "options.visualisation.colour.single.description": {
-        "message": "Only use a single colour in the visualisation. The selected message is displayed in blue, other messages are displayed in grey."
-    },
-    "options.visualisation.colour.author.caption": {
-        "message": "Multiple Colours"
-    },
-    "options.visualisation.colour.author.description": {
-        "message": "Use different colours for different authors."
-    },
-    "options.visualisation.colour.highlight": {
-        "message": "Underline authors in header display with their colours."
-    },
-    "options.visualisation.opacity": {
-        "message": "Fading for nonrelevant subthreads:"
-    },
-    "options.visualisation.colour.sent": {
-        "message": "Colour for sent emails"
-    },
-    "options.visualisation.colour.received": {
-        "message": "Colours (comma-separated) for received emails"
-    },
-    "options.visualisation.colour.current": {
-        "message": "Colour to highlight current message"
-    },
-    "options.about.version": {
-        "message": "Version"
-    },
-    "extension.copyright1": {
-        "message": "\u00a9 2005-2007 Alexander C. Hubmann"
-    },
-    "extension.copyright2": {
-        "message": "\u00a9 2007-2022 Alexander C. Hubmann-Haidvogel"
-    },
-    "extension.homepage": {
-        "message": "https://threadvis.github.io"
-    },
-    "extension.email": {
-        "message": "ahubmann@gmail.com"
-    },
-    "extension.version": {
-        "message": "[[version]]"
+    "popup.legend": {
+        "message": "Display Legend"
     }
 }
