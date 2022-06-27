@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="color-scheme" content="dark light">
+    <link rel="stylesheet" type="text/css" media="screen" href="popup.css">
+    <script type="application/javascript" src="./i18n.js"></script>
+</head>
+<body>
+    <p class="entry">ThreadVis 3.4.0</p>
+    <p class="entry">Current Account</p>
+    <p id="account_enabled" class="menuentry">__MSG_statusbar.enable__</p>
+    <p id="account_disabled" class="menuentry">__MSG_statusbar.disable__</p>
+    <hr>
+    <p class="entry">Current Folder</p>
+    <p id="folder_enabled" data-enabled="false" class="menuentry">__MSG_statusbar.enable__</p>
+    <p id="folder_disabled" class="menuentry">__MSG_statusbar.disable__</p>
+    <hr>
+    <p id="settings" class="menuentry">__MSG_popup.settings__</p>
+
+    <script src="../modules/preferences.js"></script>
+    <script src="popup.js"></script>
+</body>
+</html>

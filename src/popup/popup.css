@@ -1,0 +1,50 @@
+/* This CSS file is using core definitions and could break. We aim to make these available to
+   WebExtensions in a standard way soon */
+@import url("chrome://global/skin/global.css");
+
+body {
+    min-width: 150px;
+    margin: 5px;
+}
+
+.menuentry {
+    padding:3px 3px 3px 25px;
+    margin: 0px 0;
+    width:auto;
+    border-radius: 5px;
+    font: menu;
+    cursor: pointer;
+    position: relative;
+}
+
+.menuentry[data-enabled=true]:before {
+    content: "✔";
+    position: absolute;
+    left: 8px;
+}
+
+.entry {
+    padding:3px 3px 3px 25px;
+    margin: 0px 0;
+    width:auto;
+    font: menu;
+    color: darkgray;
+}
+
+hr {
+    border-width: 1px 0 0 0;
+    border-color: #fefefe;
+}
+
+.menuentry:hover {
+    background-color: var(--menuitem-hover-background-color);
+}
+
+
+@media (prefers-color-scheme: dark) {
+
+    .menuentry:hover {
+        background-color: var(--dark-menuitem-hover-background-color);
+    }
+
+  }

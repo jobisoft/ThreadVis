@@ -23,28 +23,27 @@
  *
  * Version: $Id$
  * *********************************************************************************************************************
- * Number utilities
+ * Wrapper for logger
  **********************************************************************************************************************/
 
-var EXPORTED_SYMBOLS = [ "DECtoHEX", "HEXtoDEC" ];
+(function (exports) {
 
-/**
- * Get hexadecimal representation of a decimal number
- * 
- * @param {Integer} dec - The decimal value of the number
- * @return {String} - The hexadecimal string representing the colour
- */
-const DECtoHEX = (dec) => {
-    const alpha = [ "0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F" ];
-    const n_ = Math.floor(dec / 16);
-    const _n = dec - n_ * 16;
-    return alpha[n_] + alpha[_n];
-};
+    const Logger = {
+        /**
+         * Log to error console
+         * 
+         * @param {String} source - The source file.
+         * @param {String} message - The log message
+         */
+        
+        // The logging features for WebExtension are not that ... great.
+        error: (source, message) => {
+            console.trace();
+            console.error(source, message);
+        }
+    };
 
-/**
- * Get decimal representation of a hexadecimal number
- * 
- * @param {String} hex - The hexadecimal value of the number
- * @return {Integer} - The decimal value of the number
- */
-const HEXtoDEC = (hex) => parseInt(hex, 16);
+    // Export what should be available in the importing scope.
+    exports.Logger = Logger;
+
+})(this)

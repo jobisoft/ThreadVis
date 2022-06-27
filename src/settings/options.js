@@ -26,75 +26,68 @@
  * JavaScript file for settings dialog
  **********************************************************************************************************************/
 
-const getPref = async (pref) => 
-    (await messenger.runtime.getBackgroundPage()).messenger.LegacyPref.get(pref);
-
-const setPref = async (pref, value) => 
-    (await messenger.runtime.getBackgroundPage()).messenger.LegacyPref.set(pref, value);
-
-const getAccounts = async () =>
-    (await messenger.runtime.getBackgroundPage()).messenger.LegacyAccountsFolders.getAccounts();
-
+const getAccounts = () => messenger.runtime.sendMessage({"command": "getAccounts"});
 const querySelector = (name, value) => `[name="${name}"]` + (value ? `[value="${value}"]` : "");
 
 const init = async () => {
-    [
-        { key: PreferenceKeys.TIMESCALING, type: "bool"},
-        { key: PreferenceKeys.TIMESCALING_METHOD, type: "string"},
-        { key: PreferenceKeys.VIS_MESSAGE_CIRCLES, type: "bool"},
-        { key: PreferenceKeys.TIMESCALING_MINTIMEDIFF, type: "string"},
-        { key: PreferenceKeys.TIMELINE, type: "bool"},
-        { key: PreferenceKeys.VIS_DOTSIZE, type: "integer"},
-        { key: PreferenceKeys.VIS_ARC_MINHEIGHT, type: "integer"},
-        { key: PreferenceKeys.VIS_ARC_RADIUS, type: "integer"},
-        { key: PreferenceKeys.VIS_ARC_DIFFERENCE, type: "integer"},
-        { key: PreferenceKeys.VIS_ARC_WIDTH, type: "integer"},
-        { key: PreferenceKeys.VIS_SPACING, type: "integer"},
-        { key: PreferenceKeys.TIMELINE_FONTSIZE, type: "integer"},
-        { key: PreferenceKeys.VIS_ZOOM, type: "string"},
-        { key: PreferenceKeys.VIS_HIGHLIGHT, type: "bool"},
-        { key: PreferenceKeys.VIS_OPACITY, type: "string"},
-        { key: PreferenceKeys.VIS_COLOUR, type: "string"},
-        { key: PreferenceKeys.VIS_COLOURS_SENT, type: "string"},
-        { key: PreferenceKeys.VIS_COLOURS_RECEIVED, type: "string"},
-        { key: PreferenceKeys.VIS_COLOURS_CURRENT, type: "string"},
-        { key: PreferenceKeys.SENTMAIL_FOLDERFLAG, type: "bool"},
-        { key: PreferenceKeys.SENTMAIL_IDENTITY, type: "bool"},
-        { key: PreferenceKeys.DISABLED_ACCOUNTS, type: "string"},
-        { key: PreferenceKeys.DISABLED_FOLDERS, type: "string"}
-    ].forEach(pref => {
-        getPref(pref.key).then(value => {
-            const elems = document.querySelectorAll(querySelector(pref.key));
-            if (elems.length == 1) {
-                const elem = elems[0];
+    let prefs = [
+        { key: Preferences.TIMESCALING, type: "bool"},
+        { key: Preferences.TIMESCALING_METHOD, type: "string"},
+        { key: Preferences.VIS_MESSAGE_CIRCLES, type: "bool"},
+        { key: Preferences.TIMESCALING_MINTIMEDIFF, type: "string"},
+        { key: Preferences.TIMELINE, type: "bool"},
+        { key: Preferences.VIS_DOTSIZE, type: "integer"},
+        { key: Preferences.VIS_ARC_MINHEIGHT, type: "integer"},
+        { key: Preferences.VIS_ARC_RADIUS, type: "integer"},
+        { key: Preferences.VIS_ARC_DIFFERENCE, type: "integer"},
+        { key: Preferences.VIS_ARC_WIDTH, type: "integer"},
+        { key: Preferences.VIS_SPACING, type: "integer"},
+        { key: Preferences.TIMELINE_FONTSIZE, type: "integer"},
+        { key: Preferences.VIS_ZOOM, type: "string"},
+        { key: Preferences.VIS_HIGHLIGHT, type: "bool"},
+        { key: Preferences.VIS_OPACITY, type: "string"},
+        { key: Preferences.VIS_COLOUR, type: "string"},
+        { key: Preferences.VIS_COLOURS_SENT, type: "string"},
+        { key: Preferences.VIS_COLOURS_RECEIVED, type: "string"},
+        { key: Preferences.VIS_COLOURS_CURRENT, type: "string"},
+        { key: Preferences.SENTMAIL_FOLDERFLAG, type: "bool"},
+        { key: Preferences.SENTMAIL_IDENTITY, type: "bool"},
+        { key: Preferences.DISABLED_ACCOUNTS, type: "string"},
+        { key: Preferences.DISABLED_FOLDERS, type: "string"}
+    ];
+    
+    for (let pref of prefs) {
+        let value = await Preferences.get(pref.key);
+        const elems = document.querySelectorAll(querySelector(pref.key));
+        if (elems.length == 1) {
+            const elem = elems[0];
+            if (pref.type === "bool") {
+                elem.checked = value;
+            } else {
+                elem.value = value;
+            }
+            elem.addEventListener("change", function() {
                 if (pref.type === "bool") {
-                    elem.checked = value;
+                    Preferences.set(pref.key, this.checked);
                 } else {
-                    elem.value = value;
+                    Preferences.set(pref.key, this.value)
+                }
+            });
+        } else if (elems.length > 1) {
+            // note: special handling for prefs which map to multiple elements, assume each elem is a boolean
+            elems.forEach(elem => {
+                const equals = elem.value === (pref.type === "bool" ? (value === true ? "true" : "false") : value);
+                if (equals) {
+                    elem.checked = true;
                 }
                 elem.addEventListener("change", function() {
-                    if (pref.type === "bool") {
-                        setPref(pref.key, this.checked);
-                    } else {
-                        setPref(pref.key, this.value)
+                    if (this.checked) {
+                        Preferences.set(pref.key, pref.type === "bool" ? (this.value === "true" ? true : false) : this.value);
                     }
                 });
-            } else if (elems.length > 1) {
-                // note: special handling for prefs which map to multiple elements, assume each elem is a boolean
-                elems.forEach(elem => {
-                    const equals = elem.value === (pref.type === "bool" ? (value === true ? "true" : "false") : value);
-                    if (equals) {
-                        elem.checked = true;
-                    }
-                    elem.addEventListener("change", function() {
-                        if (this.checked) {
-                            setPref(pref.key, pref.type === "bool" ? (this.value === "true" ? true : false) : this.value);
-                        }
-                    });
-                });
-            }
-        })
-    });
+            });
+        }
+    };
 
     // build account list
     await buildAccountList();
@@ -121,7 +114,7 @@ const buildAccountList = async () => {
                 box.disabled = ! this.checked;
             });
         })
-        if (pref != "" && pref.indexOf(" " + account.key + " ") > -1) {
+        if (pref != "" && pref.indexOf(" " + account.id + " ") > -1) {
             checkbox.checked = false;
         } else {
             checkbox.checked = true;
@@ -173,22 +166,23 @@ const buildFolderCheckboxes = (box, folders, account, indent) => {
     folders.forEach(folder => {
         const div = document.createElement("div");
         const checkbox = document.createElement("input");
-        checkbox.setAttribute("id", "ThreadVis-Account-" + account + "-Folder-" + folder.url);
+        checkbox.setAttribute("id", "ThreadVis-Account-" + account + "-Folder-" + folder.path);
         checkbox.setAttribute("type", "checkbox");
         checkbox.setAttribute("data-type", "folder");
         checkbox.setAttribute("data-account", account);
-        checkbox.setAttribute("data-folder", folder.url);
+        //Legacy folder.url is replaced by WebExte accountId+folder.path. Migration is skipped.
+        checkbox.setAttribute("data-folder", `${account}/${folder.path}`);
         checkbox.addEventListener("change", function() {
             buildFolderPreference();
         });
         div.style.paddingLeft = indent + "em";
-        if (pref != "" && pref.indexOf(folder.url + " ") > -1) {
+        if (pref != "" && pref.indexOf(`${account}/${folder.path}` + " ") > -1) {
             checkbox.checked = false;
         } else {
             checkbox.checked = true;
         }
         const label = document.createElement("label");
-        label.setAttribute("for", "ThreadVis-Account-" + account + "-Folder-" + folder.url);
+        label.setAttribute("for", "ThreadVis-Account-" + account + "-Folder-" + folder.path);
         label.textContent = folder.name;
         div.appendChild(checkbox);
         div.appendChild(label);

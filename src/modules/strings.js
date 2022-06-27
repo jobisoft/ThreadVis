@@ -23,16 +23,27 @@
  *
  * Version: $Id$
  * *********************************************************************************************************************
- * Sent mail identities
+ * Implements strings proxy
  **********************************************************************************************************************/
 
-const EXPORTED_SYMBOLS = [ "SentMailIdentities" ];
+(function (exports) {
 
-const SentMailIdentities = {};
+    /**
+     * Static strings object
+     */
+    const Strings = {
+        /**
+         * Get localized string
+         * 
+         * @param {String} key - The key of the localized string
+         * @return {String} - the localized string
+         */
+        getString(key) {
+            return browser.i18n.getMessage(key);
+        }
+    };
 
-// remember all local accounts, for sent-mail comparison
-const accountManager = Components.classes["@mozilla.org/messenger/account-manager;1"]
-        .getService(Components.interfaces.nsIMsgAccountManager);
-for (let identity in accountManager.allIdentities) {
-    SentMailIdentities[identity.email] = true;
-}
+    // Export what should be available in the importing scope.
+    exports.Strings = Strings;
+
+})(this);

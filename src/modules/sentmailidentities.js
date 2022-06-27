@@ -23,25 +23,23 @@
  *
  * Version: $Id$
  * *********************************************************************************************************************
- * Implements strings proxy
+ * Sent mail identities
  **********************************************************************************************************************/
 
-var EXPORTED_SYMBOLS = [ "Strings" ];
+(function (exports) {
 
-const { Services } = ChromeUtils.import("resource://gre/modules/Services.jsm");
-const strings = Services.strings.createBundle("chrome://threadvis/locale/threadvis.properties");
+    let SentMailIdentities = new Promise(async (resolve) => {
+        const _SentMailIdentities = {};
 
-/**
- * Static strings object
- */
-const Strings = {
-    /**
-     * Get localized string
-     * 
-     * @param {String} key - The key of the localized string
-     * @return {String} - the localized string
-     */
-    getString(key) {
-        return strings.GetStringFromName(key);
-    }
-};
+        // Remember all local accounts, for sent-mail comparison.
+        const identities = await browser.runtime.sendMessage({ command: "getIdentitites" });
+        for (let identity in identities) {
+            _SentMailIdentities[identity.email] = true;
+        }
+        resolve(_SentMailIdentities);
+    });
+
+    // Export what should be available in the importing scope.
+    exports.SentMailIdentities = SentMailIdentities;
+
+})(this)

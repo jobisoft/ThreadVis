@@ -296,16 +296,16 @@ class ThreadVis {
      * Create threadvis XUL box
      */
     createBox() {
-        const elem = this.window.document.getElementById("ThreadVis");
-        elem.hidden = false;
+        //const elem = this.window.document.getElementById("ThreadVis");
+        //elem.hidden = false;
     }
 
     /**
      * Delete threadvis XUL box
      */
     deleteBox() {
-        const elem = this.window.document.getElementById("ThreadVis");
-        elem.hidden = true;
+        //const elem = this.window.document.getElementById("ThreadVis");
+        //elem.hidden = true;
     }
 
     /**

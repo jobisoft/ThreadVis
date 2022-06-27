@@ -21,71 +21,64 @@
 // * You should have received a copy of the GNU Affero General Public License along with ThreadVis.
 // * If not, see <http://www.gnu.org/licenses/>.
 // *
-// * Version: $Id$
+// * Version: 3.4.0
 // * *******************************************************************************************************************
 // * Install manifest for Thunderbird
 // ********************************************************************************************************************/
-
 {
-    "manifest_version": 2,
-    "applications": {
-        "gecko": {
-            "id": "{A23E4120-431F-4753-AE53-5D028C42CFDC}",
-            "strict_min_version": "91.0",
-            "strict_max_version": "91.*"
-        }
-    },
-    "name": "__MSG_extensionName__",
-    "description": "__MSG_extensionDescription__",
-    "author": "Alexander C. Hubmann-Haidvogel",
-    "homepage_url": "https://threadvis.github.io",
-    "version": "[[version]]",
-    "icons": {
-        "32": "chrome/content/images/icon.png"
-    },
-    "background": {
-      "scripts": [
-        "background.js"
-      ]
-    },
-    "options_ui": {
-      "page": "settings/options.html",
-      "browser_style": true
-    },
-    "experiment_apis": {
-      "LegacyPref": {
-        "schema": "experiments/LegacyPref/schema.json",
-        "parent": {
-          "scopes": ["addon_parent"],
-          "paths": [["LegacyPref"]],
-          "script": "experiments/LegacyPref/implementation.js"
-        }
-      },
-      "LegacyAccountsFolders": {
-        "schema": "experiments/LegacyAccountsFolders/schema.json",
-        "parent": {
-          "scopes": ["addon_parent"],
-          "paths": [["LegacyAccountsFolders"]],
-          "script": "experiments/LegacyAccountsFolders/implementation.js"
-        }
-      },
-      "WindowListener": {
-        "schema": "experiments/WindowListener/schema.json",
-        "parent": {
-          "scopes": ["addon_parent"],
-          "paths": [["WindowListener"]],
-          "script": "experiments/WindowListener/implementation.js"
-        }
-      },
-      "NotifyTools": {
-        "schema": "experiments/NotifyTools/schema.json",
-        "parent": {
-          "scopes": ["addon_parent"],
-          "paths": [["NotifyTools"]],
-          "script": "experiments/NotifyTools/implementation.js",
-          "events": ["startup"]
-        }
+  "manifest_version": 2,
+  "applications": {
+    "gecko": {
+      "id": "{A23E4120-431F-4753-AE53-5D028C42CFDC}",
+      "strict_min_version": "91.0",
+      "strict_max_version": "102.*"
+    }
+  },
+  "name": "__MSG_extensionName__",
+  "description": "__MSG_extensionDescription__",
+  "author": "Alexander C. Hubmann-Haidvogel",
+  "homepage_url": "https://threadvis.github.io",
+  "version": "3.4.0",
+  "icons": {
+    "32": "chrome/content/images/icon.png"
+  },
+  "background": {
+    "scripts": [
+      "background.js"
+    ]
+  },
+  "options_ui": {
+    "page": "settings/options.html",
+    "browser_style": true
+  },
+  "message_display_action": {
+    "default_icon": "chrome/content/images/icon.png",
+    "default_popup": "popup/popup.html"
+  },
+  "permissions": [
+    "messagesRead",
+    "messagesModify",
+    "accountsRead",
+    "theme"
+  ],
+  "web_accessible_resources": [
+    "modules/strings.mjs"
+  ],
+  "experiment_apis": {
+    "LegacyPrefs": {
+      "schema": "experiments/LegacyPrefs/schema.json",
+      "parent": {
+        "scopes": [
+          "addon_parent"
+        ],
+        "paths": [
+          [
+            "LegacyPrefs"
+          ]
+        ],
+        "script": "experiments/LegacyPrefs/implementation.js"
       }
-    },
-    "default_locale": "en"
+    }
+  },
+  "default_locale": "en"
 }

@@ -23,34 +23,34 @@
  *
  * Version: $Id$
  * *********************************************************************************************************************
- * Wrapper for logger
+ * Number utilities
  **********************************************************************************************************************/
 
-var EXPORTED_SYMBOLS = [ "Logger" ];
+(function (exports) {
 
+    /**
+     * Get hexadecimal representation of a decimal number
+     * 
+     * @param {Integer} dec - The decimal value of the number
+     * @return {String} - The hexadecimal string representing the colour
+     */
+    const DECtoHEX = (dec) => {
+        const alpha = ["0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "A", "B", "C", "D", "E", "F"];
+        const n_ = Math.floor(dec / 16);
+        const _n = dec - n_ * 16;
+        return alpha[n_] + alpha[_n];
+    };
 
-/**
- * Log to error console
- * 
- * @param {String} source - The source file.
- * @param {String} message - The log message
- */
-const error = (source, message) => {
-    const consoleService = Components.classes["@mozilla.org/consoleservice;1"]
-            .getService(Components.interfaces.nsIConsoleService);
-    const scriptError = Components.classes["@mozilla.org/scripterror;1"]
-            .createInstance(Components.interfaces.nsIScriptError);
-    scriptError.init(
-        message,
-        "ThreadVis/" + source,
-        null,
-        null,
-        null,
-        Components.interfaces.nsIScriptError.errorFlag,
-        null);
-    consoleService.logMessage(scriptError);
-};
+    /**
+     * Get decimal representation of a hexadecimal number
+     * 
+     * @param {String} hex - The hexadecimal value of the number
+     * @return {Integer} - The decimal value of the number
+     */
+    const HEXtoDEC = (hex) => parseInt(hex, 16);
 
-const Logger = {
-    error
-};
+    // Export what should be available in the importing scope.
+    exports.DECtoHEX = DECtoHEX;
+    exports.HEXtoDEC = HEXtoDEC;
+
+})(this)

@@ -1,0 +1,13 @@
+.threadVisContainer {
+    background-color: silver;
+    color: white;
+    font-weight: 400;
+    padding: 0.25rem 0.5rem;
+    display: flex;
+    border-radius: 5px;
+    margin-bottom: 1ex;
+  }
+  
+  .threadVisText {
+    flex-grow: 1;
+  }

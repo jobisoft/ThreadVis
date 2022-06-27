@@ -23,37 +23,48 @@
  *
  * Version: $Id$
  * *********************************************************************************************************************
- * Register experiment to access preferences in options.js
+ * Split message ids in header field "references" and return all referenced message ids in an array.
  **********************************************************************************************************************/
 
-var { ExtensionCommon } = ChromeUtils.import("resource://gre/modules/ExtensionCommon.jsm");
+(function (exports) {
 
-var { Preferences } = ChromeUtils.import("chrome://threadvis/content/utils/preferences.jsm");
+    const References = {
+        /**
+         * Build references array
+         * 
+         * @param references - The references string
+         * @return {Array} - an array of all referenced mssage ids
+         */
+        get(references) {
+            if (references != null && references != "") {
+                const result = references.match(/[^<>\s]+/g);
 
-var LegacyPref = class extends ExtensionCommon.ExtensionAPI {
-    onStartup() {
-        Preferences.register();
-    }
-    onShutdown(isAppShutdown) {
-        if (isAppShutdown) {
-            return;
-        }
-        Preferences.unregister();
-    }
-    getAPI(context) {
-        return {
-            LegacyPref: {
-                init() {
-                    Preferences.register();
-                    Preferences.reload();
-                },
-                get(name) {
-                    return Preferences.get(name);
-                },
-                set(name, value) {
-                    Preferences.set(name, value);
+                const dupes = {};
+                const distinct = [];
+
+                // result can be null if no matches have been found
+                if (result) {
+                    for (let i = result.length - 1; i >= 0; i--) {
+                        // TODO
+                        // email from user: some mail servers seem to change the message id after the @ sign
+                        // add switch to ignore mail host after @ (setting in preferences)
+                        const msgid = result[i];
+                        if (dupes[msgid]) {
+                            continue;
+                        }
+                        dupes[msgid] = msgid;
+                        distinct.push(msgid);
+                    }
                 }
+                distinct.reverse();
+                return distinct;
+            } else {
+                return [];
             }
         }
     }
-};
+
+    // Export what should be available in the importing scope.
+    exports.References = References;
+
+})(this)

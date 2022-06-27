@@ -26,29 +26,58 @@
  * Main background script for the WebExtension
  **********************************************************************************************************************/
 
-(async => {
+(async () => {
 
-    messenger.NotifyTools.onNotifyBackground.addListener(async (info) => {
-        switch (info.command) {
-          case "initPref":
-            return messenger.LegacyPref.init();
-            break;
+    messenger.runtime.onMessage.addListener(async (message, sender, sendResponse) => {
+        if (message && message.hasOwnProperty("command")) {
+            switch (message.command) {
+                case "getThreadVisData":
+                    {
+                        let msg = await messenger.messageDisplay.getDisplayedMessage(sender.tab.id);
+                        return Promise.resolve({ text: "TEXT" });
+                    }
+
+                // The message display script cannot directly call the Experiment,
+                // pipe through runtime messaging. We use it for the options script
+                // as well, so this is the only place where the actual storage backend
+                // is used: Only this needs to be updated when moving from legacy pref
+                // storage to local storage.
+                case "getPref":
+                    return browser.LegacyPrefs.getPref(message.name, message.defaultValue);
+
+                case "setPref":
+                    return browser.LegacyPrefs.setPref(message.name, message.value);
+
+                // The message display script cannot directly call the identities API,
+                // pipe through runtime messaging.
+                case "getIdentitites":
+                    return browser.identities.list();
+                
+                case "getAccounts":
+                    return browser.accounts.list();
+            }
         }
     });
 
-    messenger.WindowListener.registerDefaultPrefs("defaults/preferences/threadvisdefault.js");
+    // Only loads into new messages, so on install, it will not load into the
+    // already open message (we could use the onInstall event and manually execute).
+    // Sadly we cannot use ES6 modules with message display scripts.
+    await messenger.messageDisplayScripts.register({
+        js: [
+            { file: "modules/preferences.js" },
+            { file: "modules/strings.js" },
+            { file: "modules/date.js" }, // date depends on strings.js
+            { file: "modules/logger.js" },
+            { file: "modules/number.js" },
+            { file: "modules/color.js" },
+            { file: "modules/references.js" },
+            { file: "modules/sentmailidentities.js" },
 
-    messenger.WindowListener.registerChromeUrl([ 
-        ["content", "threadvis",           "chrome/content/"],
-        ["locale",  "threadvis", "en-US",  "chrome/locale/en-us/"],
-        ["locale",  "threadvis", "de-DE",  "chrome/locale/de-de/"]
-    ]);
+            { file: "display/threadVis.js" }
+        ],
+        css: [
+            { file: "display/threadVis.css" }
+        ],
+    });
 
-    messenger.WindowListener.registerWindow(
-        "chrome://messenger/content/messenger.xhtml",
-        "chrome://threadvis/content/hooks/init.js");
-
-    messenger.WindowListener.registerShutdownScript("chrome://threadvis/content/hooks/shutdown.js");
-
-    messenger.WindowListener.startListening();
 })();
